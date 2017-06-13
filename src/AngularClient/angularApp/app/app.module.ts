@@ -72,5 +72,4 @@ export class AppModule {
         // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
         this.authConfiguration.max_id_token_iat_offset_allowed_in_seconds = 3;
     }
-
 }
