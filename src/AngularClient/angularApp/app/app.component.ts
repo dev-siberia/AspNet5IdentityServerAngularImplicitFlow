@@ -26,27 +26,27 @@ import './app.component.css';
 
 export class AppComponent implements OnInit {
 
-    constructor(public securityService: OidcSecurityService) {
+    constructor(public oidcSecurityService: OidcSecurityService) {
     }
 
     ngOnInit() {
         if (window.location.hash) {
-            this.securityService.authorizedCallback();
+            this.oidcSecurityService.authorizedCallback();
         }
     }
 
     login() {
         console.log('start login');
-        this.securityService.authorize();
+        this.oidcSecurityService.authorize();
     }
 
     refreshSession() {
         console.log('start refreshSession');
-        this.securityService.authorize();
+        this.oidcSecurityService.authorize();
     }
 
     logout() {
         console.log('start logoff');
-        this.securityService.logoff();
+        this.oidcSecurityService.logoff();
     }
 }
