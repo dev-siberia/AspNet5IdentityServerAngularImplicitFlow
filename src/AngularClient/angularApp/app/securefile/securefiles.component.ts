@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SecureFileService } from './SecureFileService';
-import { OidcSecurityService } from '../auth/services/oidc.security.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable }       from 'rxjs/Observable';
 
 @Component({

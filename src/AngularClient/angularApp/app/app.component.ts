@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Configuration } from './app.constants';
 
-import { OidcSecurityService } from './auth/services/oidc.security.service';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { SecureFileService } from './securefile/SecureFileService';
 import { DataEventRecordsService } from './dataeventrecords/DataEventRecordsService';
 import { DataEventRecord } from './dataeventrecords/models/DataEventRecord';
