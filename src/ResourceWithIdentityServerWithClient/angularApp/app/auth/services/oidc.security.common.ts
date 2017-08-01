@@ -1,10 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { AuthConfiguration } from '../modules/auth.configuration';
+import { OidcSecurityStorage } from './oidc.security.storage';
 
 @Injectable()
 export class OidcSecurityCommon {
-
-    private storage: any;
 
     storage_access_token = 'authorizationData';
     storage_id_token = 'authorizationDataIdToken';
@@ -13,30 +12,31 @@ export class OidcSecurityCommon {
     storage_auth_nonce = 'authNonce';
     storage_auth_state_control = 'authStateControl';
     storage_well_known_endpoints = 'wellknownendpoints';
+    storage_session_state = 'session_state';
+    storage_silent_renew_running = 'storage_silent_renew_running';
 
-    constructor(private authConfiguration: AuthConfiguration) {
-        this.storage = sessionStorage; //localStorage;
+    constructor(private authConfiguration: AuthConfiguration, private oidcSecurityStorage: OidcSecurityStorage) {
     }
 
+    setupModule() { }
+
     retrieve(key: string): any {
-        let item = this.storage.getItem(key);
-
-        if (item && item !== 'undefined') {
-            return JSON.parse(this.storage.getItem(key));
-        }
-
-        return;
+        return this.oidcSecurityStorage.read(key);
     }
 
     store(key: string, value: any) {
-        this.storage.setItem(key, JSON.stringify(value));
+        this.oidcSecurityStorage.write(key, value);
     }
 
-    resetStorageData() {
-        this.store(this.storage_access_token, '');
-        this.store(this.storage_id_token, '');
-        this.store(this.storage_is_authorized, false);
-        this.store(this.storage_user_data, '');
+    resetStorageData(isRenewProcess: boolean) {
+        if (!isRenewProcess) {
+            this.store(this.storage_session_state, '');
+            this.store(this.storage_silent_renew_running, '');
+            this.store(this.storage_is_authorized, false);
+            this.store(this.storage_access_token, '');
+            this.store(this.storage_id_token, '');
+            this.store(this.storage_user_data, '');
+        }
     }
 
     getAccessToken(): any {

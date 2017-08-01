@@ -99,8 +99,8 @@ namespace QuickstartIdentityServer
                     ClientName = "angularclient",
                     ClientId = "angularclient",
                     AccessTokenType = AccessTokenType.Reference,
-                    AccessTokenLifetime = 120,// 120 seconds, default 60 minutes
-                    IdentityTokenLifetime = 90,
+                    AccessTokenLifetime = 330,// 120 seconds, default 60 minutes
+                    IdentityTokenLifetime = 300,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
@@ -110,7 +110,7 @@ namespace QuickstartIdentityServer
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-                        "https://localhost:44311/Unauthorized"
+                        "https://localhost:44311/unauthorized"
                     },
                     AllowedCorsOrigins = new List<string>
                     {
@@ -128,7 +128,42 @@ namespace QuickstartIdentityServer
                         "profile",
                         "email"
                     }
-                }
+                },
+                new Client
+                {
+                    ClientName = "angularclientidtokenonly",
+                    ClientId = "angularclientidtokenonly",
+                    AccessTokenType = AccessTokenType.Reference,
+                    AccessTokenLifetime = 120,// 120 seconds, default 60 minutes
+                    IdentityTokenLifetime = 90,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = new List<string>
+                    {
+                        "https://localhost:44372"
+
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "https://localhost:44372/Unauthorized"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "https://localhost:44372",
+                        "http://localhost:44372"
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        "openid",
+                        "dataEventRecords",
+                        "dataeventrecordsscope",
+                        "securedFiles",
+                        "securedfilesscope",
+                        "role",
+                        "profile",
+                        "email"
+                    }
+}
             };
         }
     }

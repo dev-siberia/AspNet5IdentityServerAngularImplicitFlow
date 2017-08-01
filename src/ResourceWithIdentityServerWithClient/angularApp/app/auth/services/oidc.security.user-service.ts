@@ -14,7 +14,7 @@ import { AuthWellKnownEndpoints } from './auth.well-known-endpoints';
 @Injectable()
 export class OidcSecurityUserService {
 
-    userData: any;
+    userData: any = '';
 
     constructor(
         private http: Http,
@@ -22,10 +22,6 @@ export class OidcSecurityUserService {
         private oidcSecurityCommon: OidcSecurityCommon,
         private authWellKnownEndpoints: AuthWellKnownEndpoints
     ) {
-
-        if (this.oidcSecurityCommon.retrieve(this.oidcSecurityCommon.storage_user_data) !== '') {
-            this.userData = this.oidcSecurityCommon.retrieve(this.oidcSecurityCommon.storage_user_data);
-        }
     }
 
     initUserData() {
@@ -42,7 +38,7 @@ export class OidcSecurityUserService {
         let token = this.oidcSecurityCommon.getAccessToken();
 
         if (token !== '') {
-            headers.append('Authorization', 'Bearer ' + token);
+            headers.append('Authorization', 'Bearer ' + decodeURIComponent(token));
         }
 
         return this.http.get(this.authWellKnownEndpoints.userinfo_endpoint, {
